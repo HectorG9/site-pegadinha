@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pegadinha - Deseja Namorar Comigo?</title>
+  <style>
+    /* Resetando margens e padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+      margin: 0;
+      overflow: hidden;
+      flex-direction: column; /* Para telas pequenas os itens vão empilhar */
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    #noBtn {
+      background-color: #f44336;
+    }
+
+    #noBtn:hover {
+      background-color: #e53935;
+    }
+
+    /* Ajustes para quando a tela é menor */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .button {
+        font-size: 16px;
+        padding: 12px 24px;
+        width: 80%; /* Botões ocupam mais largura no celular */
+      }
+    }
+
+    /* Estilo da mensagem que aparece após a interação */
+    .message {
+      display: none;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6347;
+      margin-top: 20px;
+      position: absolute;
+      pointer-events: none; /* Previne que a mensagem interaja com o mouse */
+      user-select: none; /* Previne seleção do texto */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Deseja namorar comigo?</h1>
+    <button class="button" id="yesBtn">Sim</button>
+    <button class="button" id="noBtn">Não</button>
+    <div class="message" id="message">Parabéns! Você é incrível!</div>
+  </div>
+
+  <script>
+    // Elementos
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const message = document.getElementById('message');
+
+    // Função para redirecionar para outra página quando clicar em 'Sim'
+    yesBtn.addEventListener('click', () => {
+      window.location.href = 'parabens.html'; // Redireciona para a página "parabens.html"
+    });
+
+    // Função para mover o botão 'Não' para uma posição aleatória na tela
+    noBtn.addEventListener('click', () => {
+      // Obtém a largura e altura da janela do navegador
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      // Gera valores aleatórios para as novas coordenadas (x e y)
+      const randomX = Math.random() * (windowWidth - noBtn.offsetWidth);
+      const randomY = Math.random() * (windowHeight - noBtn.offsetHeight);
+
+      // Move o botão "Não" para a posição aleatória
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+
+      // Exibe a mensagem e começa a animação
+      message.style.display = 'block';
+      message.innerHTML = 'Ah, que pena! Não desista, vou te convencer!';
+    });
+
+    // Função para mover a mensagem de acordo com o mouse
+    document.addEventListener('mousemove', (e) => {
+      if (message.style.display === 'block') {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        message.style.left = mouseX + 'px';
+        message.style.top = mouseY + 'px';
+      }
+    });
+  </script>
+
+</body>
+</html>
